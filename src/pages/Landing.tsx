@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import {
   Activity,
+  ArrowDownToLine,
   ArrowRight,
   BrainCircuit,
   ChartLine,
@@ -14,6 +15,14 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, Navigate } from "react-router";
+import { useState } from "react";
+import { toast } from "sonner";
+import {
+  ARCHIVE_FILENAME,
+  ARCHIVE_SHA256,
+  buildArchiveObjectUrl,
+  downloadProjectArchive,
+} from "@/lib/download-archive";
 
 const fadeUp = {
   initial: { opacity: 0, y: 18 },
@@ -49,6 +58,23 @@ const modules = [
 
 export default function Landing() {
   const { isAuthenticated, isLoading } = useAuth();
+  const [saving, setSaving] = useState(false);
+  const [archiveUrl, setArchiveUrl] = useState<string | null>(null);
+
+  const handleArchiveDownload = () => {
+    setSaving(true);
+    try {
+      downloadProjectArchive();
+      if (!archiveUrl) setArchiveUrl(buildArchiveObjectUrl());
+      toast.success("Archive sent to your downloads", {
+        description: "If nothing appeared, use the open-in-tab fallback under the button.",
+      });
+    } catch {
+      toast.error("Could not assemble the archive in this browser");
+    } finally {
+      setTimeout(() => setSaving(false), 600);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -282,6 +308,97 @@ export default function Landing() {
 │ northwind-experience  │
 │ northwind-world       │
 └───────────────────────┘`}</pre>
+          </div>
+        </div>
+      </section>
+
+      {/* Full source archive — downloadable from the homepage */}
+      <section id="source-archive" className="swiss-ink-top-blue border-b border-border bg-secondary/60">
+        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-16 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <p className="swiss-kicker">Complete source code</p>
+            <h2 className="swiss-headline mt-3 text-4xl md:text-5xl">
+              Take the whole system with you.
+            </h2>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
+              The full project — frontend, backend, memory integration, demo
+              dataset and documentation — packaged as a single archive and
+              assembled locally in your browser when you click. Nothing is
+              uploaded or fetched from a server.
+              {" "}
+              <a className="underline hover:text-foreground" href="#source-archive">
+                #source-archive
+              </a>
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <Button
+                size="lg"
+                className="cursor-pointer gap-2 bg-[#1f4e9c] text-white hover:bg-[#1f4e9c]/85"
+                onClick={handleArchiveDownload}
+                disabled={saving}
+              >
+                <ArrowDownToLine className="size-4" />
+                {saving ? "Assembling archive…" : `Download ${ARCHIVE_FILENAME}`}
+              </Button>
+              <p className="text-[11px] text-muted-foreground">
+                sha256 {ARCHIVE_SHA256.slice(0, 16)}… · verified intact
+              </p>
+            </div>
+            {archiveUrl && (
+              <div className="mt-4 border border-[#d5281b]/30 bg-[#d5281b]/[0.04] p-3">
+                <p className="text-xs font-semibold text-foreground">
+                  Nothing arrived in your downloads folder?
+                </p>
+                <p className="mt-1 text-[11px] text-muted-foreground">
+                  The preview sandbox can block automatic saves. Open the
+                  generated file directly:
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="mt-2 cursor-pointer gap-2"
+                  onClick={() => window.open(archiveUrl, "_blank", "noopener")}
+                >
+                  Open archive in a new tab
+                </Button>
+            </div>
+            )}
+          </div>
+          <div className="swiss-panel md:col-span-5">
+            <div className="border-b border-border px-4 py-2.5">
+              <p className="swiss-kicker">In the archive</p>
+            </div>
+            <div className="grid grid-cols-2 gap-px bg-border">
+              {[
+                ["Files", "128"],
+                ["Runtime", "Bun + Vite"],
+                ["Backend", "Convex functions"],
+                ["Memory", "Self-hosted Hindsight"],
+              ].map(([k, v]) => (
+                <div key={k} className="bg-card px-4 py-3">
+                  <p className="swiss-kicker">{k}</p>
+                  <p className="swiss-num mt-1 text-lg font-bold tracking-tight">{v}</p>
+                </div>
+              ))}
+            </div>
+            <div className="px-4 py-3">
+              <ul className="space-y-1.5">
+                {[
+                  "React frontend — landing, auth, executive dashboard, all panels",
+                  "Convex backend — agent, financial & simulation engines, API layer",
+                  "Hindsight integration — retain / recall / reflect with fallback",
+                  "Six-month demo dataset, competitor events, decision records",
+                  "README — architecture, local Hindsight setup, demo flow",
+                ].map((item) => (
+                  <li key={item} className="text-xs leading-relaxed text-foreground">
+                    ✓ {item}
+                  </li>
+                ))}
+                <li className="text-xs leading-relaxed text-muted-foreground">
+                  — Excludes node_modules (bun install) and environment secrets
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
