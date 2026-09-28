@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { SwissThemeMark } from "@/components/copilot/SwissThemeMark";
-import { ARCHIVE_SHA256, ARCHIVE_FILENAME, downloadProjectArchive } from "@/lib/download-archive";
-import { ArrowDownToLine, CheckCircle2, FileArchive } from "lucide-react";
-import { useState } from "react";
+import {
+  ARCHIVE_SHA256,
+  ARCHIVE_FILENAME,
+  buildArchiveObjectUrl,
+  downloadProjectArchive,
+} from "@/lib/download-archive";
+import { ArrowDownToLine, CheckCircle2, ExternalLink, FileArchive } from "lucide-react";
+import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
 const INCLUDE = [
@@ -21,18 +26,20 @@ const EXCLUDE = [
 
 export default function Download() {
   const [saving, setSaving] = useState(false);
+  // Object URL is built once on demand and reused for the fallback link.
+  const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
 
   const handleDownload = () => {
     setSaving(true);
     try {
       downloadProjectArchive();
-      toast.success("Archive generated", {
-        description: `${ARCHIVE_FILENAME} saved to your downloads.`,
+      if (!fallbackUrl) setFallbackUrl(buildArchiveObjectUrl());
+      toast.success("Archive sent to your downloads", {
+        description:
+          "If nothing appeared, your browser may have blocked it — use the fallback below.",
       });
     } catch {
-      toast.error("Could not generate the archive", {
-        description: "Try the direct link below, or ask for a fresh export.",
-      });
+      toast.error("Could not assemble the archive in this browser");
     } finally {
       setTimeout(() => setSaving(false), 600);
     }
@@ -56,9 +63,8 @@ export default function Download() {
           </div>
           <h1 className="swiss-headline mt-3 text-3xl">{ARCHIVE_FILENAME}</h1>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            The full codebase in a single archive. The file is assembled
-            locally in your browser from the embedded build payload — no
-            server round-trip, so it works even in sandboxed previews.
+            The full codebase in a single archive, assembled locally in your
+            browser from the embedded payload — no server round-trip.
           </p>
 
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -98,14 +104,39 @@ export default function Download() {
             <CheckCircle2 className="size-3.5 text-[#2f9e63]" />
             Integrity: sha256 {ARCHIVE_SHA256.slice(0, 16)}…
           </p>
-          <p className="mt-3 text-center text-[11px] text-muted-foreground">
-            If your browser blocks the save, open{" "}
+
+          {fallbackUrl && (
+            <div className="mt-4 border border-[#d5281b]/30 bg-[#d5281b]/[0.04] p-3">
+              <p className="text-xs font-semibold text-foreground">
+                Nothing arrived in your downloads folder?
+              </p>
+              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                Your browser or the preview sandbox may have blocked the
+                automatic save. Use this instead — it opens the generated file
+                directly:
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                className="mt-2 w-full cursor-pointer gap-2"
+                onClick={() => {
+                  const url = fallbackUrl ?? buildArchiveObjectUrl();
+                  window.open(url, "_blank", "noopener");
+                }}
+              >
+                <ExternalLink className="size-3.5" />
+                Open archive in a new tab
+              </Button>
+            </div>
+          )}
+
+          <p className="mt-4 text-center text-[11px] text-muted-foreground">
+            Also available at the project root and at{" "}
             <a className="underline hover:text-foreground" href="/hindsight-strategy-copilot.zip">
               /hindsight-strategy-copilot.zip
-            </a>{" "}
-            directly, or the archive also sits at the project root.
+            </a>
           </p>
-          <p className="mt-4 text-center text-[11px] text-muted-foreground">
+          <p className="mt-3 text-center text-[11px] text-muted-foreground">
             After unzipping: bun install → bun convex dev --once → bun run dev
           </p>
         </div>
