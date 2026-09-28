@@ -117,7 +117,7 @@ export function ExecutiveAI() {
           <div>
             <p className="text-sm font-bold tracking-tight">Executive AI</p>
             <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Ask anything — answers are grounded in memory and data
+              Grounded in memory and data — every answer shows its work
             </p>
           </div>
         </div>
@@ -291,12 +291,13 @@ export function ExecutiveAI() {
             className="size-[52px] shrink-0 cursor-pointer bg-[#1f4e9c] text-white hover:bg-[#1f4e9c]/85"
             onClick={() => void handleAsk(question)}
             disabled={pending || !question.trim()}
+            aria-label="Ask the co-pilot"
           >
             {pending ? <Loader2 className="size-4 animate-spin" /> : <ArrowUpRight className="size-4" />}
           </Button>
         </div>
         <p className="mt-1.5 text-[10px] uppercase tracking-widest text-muted-foreground">
-          AI interprets · deterministic code calculates · humans decide
+          The system interprets · deterministic code calculates · humans decide
         </p>
       </div>
     </div>

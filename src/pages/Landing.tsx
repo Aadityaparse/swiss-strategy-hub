@@ -32,12 +32,19 @@ function SwissMark({ className = "size-9" }: { className?: string }) {
 }
 
 const loop = [
-  { label: "Remember", icon: BrainCircuit, note: "Hindsight Experience + World memory" },
-  { label: "Understand", icon: ChartLine, note: "Deterministic six-month financial engine" },
-  { label: "Simulate", icon: GitBranch, note: "What-if scenario canvas" },
-  { label: "Explain", icon: Compass, note: "Evidence-backed AI interpretation" },
-  { label: "Decide", icon: CircleDot, note: "Human-in-the-loop decision gate" },
-  { label: "Learn", icon: Timer, note: "Outcomes retained back into memory" },
+  { label: "Remember", icon: BrainCircuit, note: "Experience and world memory, retained in Hindsight" },
+  { label: "Understand", icon: ChartLine, note: "Six months of financials, computed deterministically" },
+  { label: "Simulate", icon: GitBranch, note: "Scenario levers with stated assumptions" },
+  { label: "Explain", icon: Compass, note: "Every claim carries its evidence" },
+  { label: "Decide", icon: CircleDot, note: "The judgment stays with the executive" },
+  { label: "Learn", icon: Timer, note: "Outcomes return to memory as lessons" },
+];
+
+const modules = [
+  { icon: ChartLine, t: "Financial Intelligence", d: "Six months of revenue, margin, CAC and churn — computed by a deterministic engine, annotated where the story turns." },
+  { icon: Globe2, t: "Competitor Monitor", d: "Public competitor moves distilled into strategic signals, with hypotheses that name their evidence and confidence." },
+  { icon: GitBranch, t: "Strategy Canvas", d: "A deterministic what-if engine. Every simulation arrives with the comparable history from memory." },
+  { icon: Activity, t: "Memory Inspector", d: "A live ledger of what the system retained, recalled and reflected — the memory is observable, not claimed." },
 ];
 
 export default function Landing() {
@@ -62,8 +69,8 @@ export default function Landing() {
       transition={{ duration: 0.4 }}
       className="swiss-grid-bg min-h-screen bg-background"
     >
-      {/* Top bar */}
-      <header className="border-b border-border bg-background/90 backdrop-blur">
+      {/* Masthead */}
+      <header className="swiss-ink-top sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link to="/" className="flex items-center gap-3">
             <SwissMark />
@@ -73,9 +80,9 @@ export default function Landing() {
             </div>
           </Link>
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-            <a className="hover:text-foreground" href="#problem">Problem</a>
-            <a className="hover:text-foreground" href="#system">System</a>
-            <a className="hover:text-foreground" href="#loop">Method</a>
+            <a className="hover:text-foreground" href="#problem">The problem</a>
+            <a className="hover:text-foreground" href="#system">The system</a>
+            <a className="hover:text-foreground" href="#loop">The method</a>
           </nav>
           <div className="flex items-center gap-3">
             <Button asChild variant="ghost" className="cursor-pointer">
@@ -83,7 +90,7 @@ export default function Landing() {
             </Button>
             <Button asChild className="cursor-pointer gap-2 bg-[#16181d] text-white hover:bg-[#16181d]/85">
               <Link to="/auth">
-                Open the Co-Pilot
+                Enter the workspace
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
@@ -91,12 +98,12 @@ export default function Landing() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="border-b border-border">
+      {/* Opening statement */}
+      <section className="swiss-ink-top border-b border-border">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-16 md:py-24 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Badge variant="outline" className="mb-6 border-[#d5281b] text-[#d5281b]">
-              Self-hosted Hindsight memory · No cloud key
+              Self-hosted memory · No cloud dependency
             </Badge>
             <h1 className="swiss-headline text-5xl md:text-7xl">
               Remember the past.
@@ -107,57 +114,60 @@ export default function Landing() {
             </h1>
             <div className="swiss-rule mt-8" />
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              A persistent strategic intelligence system that connects
-              organizational memory, six-month financial history, competitive
-              intelligence and what-if simulation — so humans make
-              better-informed strategic decisions.
+              Hindsight is a strategic intelligence system for organizations
+              that refuse to re-learn the same lesson twice. It keeps the
+              institutional memory of every decision, prices the present with
+              deterministic precision, and rehearses the future — while leaving
+              the judgment where it belongs.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Button asChild size="lg" className="cursor-pointer gap-2 bg-[#16181d] text-white hover:bg-[#16181d]/85">
                 <Link to="/auth">
-                  Launch the dashboard
+                  Request access
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>
               <p className="text-xs text-muted-foreground">
-                AI recommends. <span className="font-semibold text-foreground">Humans decide.</span>
+                The system advises. <span className="font-semibold text-foreground">The executive decides.</span>
               </p>
             </div>
           </div>
 
-          {/* Memory panel mock — the product's core artifact */}
           <div className="lg:col-span-5">
             <motion.div
               {...fadeUp}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="swiss-panel"
+              className="swiss-panel swiss-ink-top-blue"
             >
               <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
-                <p className="swiss-kicker">Hindsight · Memory Activity</p>
+                <p className="swiss-kicker">Memory ledger — live</p>
                 <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <span className="swiss-dot bg-[#d5281b] swiss-pulse" />
-                  live
+                  recording
                 </span>
               </div>
               <div className="divide-y divide-border">
                 {[
-                  { op: "RECALL", bank: "experience", q: "previous pricing experiments", n: 3 },
-                  { op: "RETAIN", bank: "world", q: "Apex entry-tier cut -12%", n: 1 },
-                  { op: "REFLECT", bank: "experience", q: "patterns across pricing decisions", n: 4 },
+                  { op: "Recall", bank: "Experience", q: "prior pricing experiments, with outcomes", n: 3 },
+                  { op: "Retain", bank: "World", q: "competitor entry-tier reduction, August", n: 1 },
+                  { op: "Reflect", bank: "Experience", q: "patterns across six months of pricing decisions", n: 4 },
                 ].map((row) => (
                   <div key={row.op + row.q} className="px-4 py-3">
                     <div className="flex items-center justify-between">
-                      <p className="text-xs font-semibold tracking-widest text-[#1f4e9c]">{row.op}</p>
+                      <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4e9c]">{row.op}</p>
                       <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{row.bank} bank</p>
                     </div>
-                    <p className="mt-1 text-sm text-foreground">"{row.q}"</p>
-                    <p className="mt-0.5 text-xs text-muted-foreground">{row.n} grounded source(s) returned</p>
+                    <p className="mt-1 text-sm text-foreground">{row.q}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">
+                      {row.n} grounded source{row.n === 1 ? "" : "s"} returned
+                    </p>
                   </div>
                 ))}
               </div>
               <div className="border-t border-border bg-secondary px-4 py-2.5">
                 <p className="text-[11px] text-muted-foreground">
-                  Every panel on the dashboard is driven by these operations.
+                  An excerpt from the operational ledger. Every panel in the
+                  workspace is driven by entries like these.
                 </p>
               </div>
             </motion.div>
@@ -165,24 +175,24 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Problem / solution */}
+      {/* Problem / system / discipline */}
       <section id="problem" className="border-b border-border bg-secondary/60">
         <div className="mx-auto grid max-w-6xl gap-8 px-6 py-16 md:grid-cols-3 md:py-20">
           {[
             {
               kicker: "01 — The problem",
-              title: "Organizations forget",
-              body: "Decisions are made, outcomes land in spreadsheets, and the reasoning evaporates. Six months later the same pricing debate restarts from zero — without the evidence of what happened last time.",
+              title: "Institutions forget",
+              body: "Decisions are made, results land in a spreadsheet, and the reasoning evaporates. A year later the same debate restarts from zero — with no record of what was tried, what it cost, or what it taught.",
             },
             {
               kicker: "02 — The system",
               title: "Memory, not another chatbot",
-              body: "Hindsight — self-hosted and open-source — retains decisions, outcomes and competitor moves in Experience and World memory banks, then recalls and reflects over them on demand.",
+              body: "Hindsight retains every decision, outcome and competitor move in dedicated memory banks, then recalls and reflects over them on demand. The intelligence compounds; nothing has to be re-explained.",
             },
             {
               kicker: "03 — The discipline",
               title: "Facts, simulations, hypotheses",
-              body: "Financials and simulations are deterministic code. The AI interprets and explains — never calculates, never guarantees. Uncertainty is labeled: hypothesis, assumption, confidence.",
+              body: "Financials and projections come from deterministic code, never from a language model. Uncertainty is labeled for what it is — hypothesis, assumption, confidence — and evidence travels with every claim.",
             },
           ].map((c, i) => (
             <motion.div
@@ -198,12 +208,12 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Core loop */}
+      {/* Method */}
       <section id="loop" className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-          <p className="swiss-kicker">The core loop</p>
+          <p className="swiss-kicker">The method</p>
           <h2 className="swiss-headline mt-3 max-w-2xl text-4xl md:text-5xl">
-            One continuous learning cycle.
+            One continuous cycle of institutional learning.
           </h2>
           <div className="mt-10 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
             {loop.map((step, i) => (
@@ -233,16 +243,11 @@ export default function Landing() {
           <div>
             <p className="swiss-kicker">Inside the system</p>
             <h2 className="swiss-headline mt-3 text-4xl md:text-5xl">
-              Four modules, one memory spine.
+              Four disciplines. One memory.
             </h2>
             <div className="swiss-rule mt-6" />
             <ul className="mt-8 space-y-5">
-              {[
-                { icon: ChartLine, t: "Financial Intelligence", d: "Six months of KPIs computed deterministically — revenue, margin, CAC, churn — with annotated anomalies and turning points." },
-                { icon: Globe2, t: "Competitor Monitor", d: "Public competitor events distilled into strategic signals, with hypotheses that always show their evidence and confidence." },
-                { icon: GitBranch, t: "Strategy Canvas", d: "A deterministic what-if engine. Historical recall accompanies every simulation — no invented numbers, no guaranteed predictions." },
-                { icon: Activity, t: "Memory Inspector", d: "A live view of retain / recall / reflect operations against the self-hosted Hindsight server. Nothing faked; fallback is labeled." },
-              ].map((f) => (
+              {modules.map((f) => (
                 <li key={f.t} className="flex gap-4">
                   <div className="mt-0.5 flex size-9 shrink-0 items-center justify-center border border-border bg-card">
                     <f.icon className="size-4 text-[#1f4e9c]" />
@@ -255,8 +260,8 @@ export default function Landing() {
               ))}
             </ul>
           </div>
-          <div className="swiss-panel self-start p-6 font-mono text-xs leading-6 text-muted-foreground">
-            <p className="swiss-kicker mb-4 font-sans">Architecture</p>
+          <div className="swiss-panel swiss-ink-top self-start p-6 font-mono text-xs leading-6 text-muted-foreground">
+            <p className="swiss-kicker mb-4 font-sans">System architecture</p>
             <pre className="overflow-x-auto whitespace-pre">{`React + Vite + Recharts
         │
         ▼  queries · actions
@@ -281,14 +286,14 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="border-b border-[#16181d] bg-[#16181d] text-white">
+      {/* Closing statement */}
+      <section className="swiss-ink-top border-b border-[#16181d] bg-[#16181d] text-white">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-6 py-16 md:flex-row md:items-center">
           <div>
             <h2 className="swiss-headline text-4xl md:text-5xl">Let humans decide.</h2>
             <p className="mt-3 max-w-xl text-white/70">
-              Open the executive dashboard, ask a real question, and watch the
-              memory activity that answers it.
+              The machine remembers, computes and explains. The final call —
+              with full sight of the evidence — remains a human act.
             </p>
           </div>
           <Button asChild size="lg" className="cursor-pointer gap-2 bg-white text-[#16181d] hover:bg-white/85">
@@ -303,10 +308,10 @@ export default function Landing() {
       <footer className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-10 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-3">
           <SwissMark className="size-6" />
-          <span>Hindsight Strategy Co-Pilot — hackathon prototype</span>
+          <span>Hindsight Strategy Co-Pilot — institutional memory for serious decisions</span>
         </div>
         <span>
-          Hindsight runs self-hosted (open source). Simulations are estimates, not predictions.
+          Hindsight runs self-hosted. Simulations are estimates, never promises.
         </span>
       </footer>
     </motion.div>

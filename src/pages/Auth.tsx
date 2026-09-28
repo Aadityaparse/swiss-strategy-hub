@@ -123,16 +123,17 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
               <div className="flex justify-center">
                     <img
                       src={logo}
-                      alt="Lock Icon"
+                      alt="Hindsight Strategy Co-Pilot"
                       width={64}
                       height={64}
-                      className="rounded-lg mb-4 mt-4 cursor-pointer"
+                      className="mb-4 mt-4 cursor-pointer"
                       onClick={() => navigate("/")}
                     />
                   </div>
-                <CardTitle className="text-xl">Get Started</CardTitle>
+                <CardTitle className="text-xl">Hindsight Strategy Co-Pilot</CardTitle>
                 <CardDescription>
-                  Enter your email to log in or sign up
+                  Sign in to open the strategy workspace. New here? The same
+                  email creates your account.
                 </CardDescription>
               </CardHeader>
               <form onSubmit={handleEmailSubmit}>
@@ -178,7 +179,7 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                         </span>
                       </div>
                     </div>
-                    
+
                     <Button
                       type="button"
                       variant="outline"
@@ -186,8 +187,7 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
                       onClick={handleGuestLogin}
                       disabled={isLoading}
                     >
-                      <UserX className="mr-2 h-4 w-4" />
-                      Continue as Guest
+                      Continue as guest
                     </Button>
                   </div>
                 </CardContent>
@@ -196,9 +196,10 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
           ) : (
             <>
               <CardHeader className="text-center mt-4">
-                <CardTitle>Check your email</CardTitle>
+                <CardTitle>Check your inbox</CardTitle>
                 <CardDescription>
-                  We've sent a code to {step.email}
+                  A six-digit verification code is on its way to {step.email}.
+                  It expires in fifteen minutes.
                 </CardDescription>
               </CardHeader>
               <form onSubmit={handleOtpSubmit}>

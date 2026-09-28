@@ -80,7 +80,7 @@ export function DecisionMemory() {
               .catch(() => toast.error("Ingest failed"));
           }}
         >
-          <RefreshCw className="size-3.5" /> Re-ingest demo data
+          <RefreshCw className="size-3.5" /> Re-seed memory banks
         </Button>
       </div>
 
@@ -162,7 +162,7 @@ export function DecisionMemory() {
 
       <div className="border-t border-border bg-secondary px-4 py-2">
         <p className="text-[11px] text-muted-foreground">
-          Learning loop: outcome → lesson → Hindsight memory → future decisions.
+          The learning loop: outcome becomes lesson, lesson is retained to memory, memory informs the next decision.
         </p>
       </div>
     </div>

@@ -95,7 +95,7 @@ export function FinancialJourney() {
         <div>
           <p className="text-sm font-bold tracking-tight">Six-Month Financial Journey</p>
           <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-            Deterministic engine · Mar – Aug 2026
+            Deterministic computation · March – August 2026
           </p>
         </div>
         <Tabs value={metric} onValueChange={(v) => setMetric(v as typeof metric)}>

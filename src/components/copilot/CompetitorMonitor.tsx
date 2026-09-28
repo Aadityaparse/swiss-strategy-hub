@@ -88,7 +88,7 @@ export function CompetitorMonitor() {
           </div>
         </div>
         <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
-          mock public data
+          illustrative public data
         </span>
       </div>
 

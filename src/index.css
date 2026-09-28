@@ -201,6 +201,20 @@ body {
   color: var(--muted-foreground);
 }
 
+/* Editorial top border — a heavier ink rule for panel tops and page bands.
+   The consistent 3px ink top edge is the premium broadsheet signature. */
+.swiss-ink-top {
+  border-top: 3px solid var(--swiss-ink);
+}
+
+.swiss-ink-top-blue {
+  border-top: 3px solid var(--swiss-blue);
+}
+
+.swiss-ink-top-red {
+  border-top: 3px solid var(--swiss-red);
+}
+
 .swiss-headline {
   font-weight: 700;
   letter-spacing: -0.03em;

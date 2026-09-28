@@ -138,7 +138,7 @@ export function StrategyCanvas() {
           <div>
             <p className="text-sm font-bold tracking-tight">Strategy Canvas</p>
             <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Deterministic what-if simulation · baseline {latest?.label ?? "—"}
+              Deterministic projection · baseline {latest?.label ?? "—"} actuals
             </p>
           </div>
         </div>
@@ -215,7 +215,7 @@ export function StrategyCanvas() {
               <div className="flex items-center gap-2">
                 <DataSourceLabel kind="Simulation" />
                 <span className="text-[11px] text-muted-foreground">
-                  Estimate under stated assumptions — not a prediction or guarantee
+                  An estimate under stated assumptions — not a forecast, and not advice
                 </span>
               </div>
               <WhyHover title="Assumptions">

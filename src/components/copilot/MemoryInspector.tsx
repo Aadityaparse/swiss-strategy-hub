@@ -48,7 +48,7 @@ export function MemoryInspector() {
           <div>
             <p className="text-sm font-bold tracking-tight">Memory Inspector</p>
             <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Actual Hindsight operations — nothing faked
+              A verbatim ledger of operations against the memory server
             </p>
           </div>
         </div>
@@ -134,7 +134,7 @@ export function MemoryInspector() {
       <div className="border-t border-border bg-secondary px-4 py-2">
         <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
           <RefreshCw className="size-3" />
-          Streamed reactively from the backend — each row is a real operation.
+          Streamed live from the backend — each entry is an operation the system actually performed.
         </p>
       </div>
     </div>

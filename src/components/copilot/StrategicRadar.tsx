@@ -131,7 +131,7 @@ export function StrategicRadar() {
           <div>
             <p className="text-sm font-bold tracking-tight">Strategic Radar</p>
             <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Every indicator carries evidence
+              Each indicator opens to show the evidence behind it
             </p>
           </div>
         </div>
